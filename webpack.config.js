@@ -29,7 +29,13 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    open: true
+    open: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000", 
+        pathRewrite: {"^/api" : ""}
+      }
+    } 
   },
   plugins: [
     new HtmlWebpackPlugin({
