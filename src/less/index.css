@@ -1,0 +1,8 @@
+.app {
+  height: 100%;
+}
+.app .index__header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+}
