@@ -14,3 +14,7 @@ export const postSession = (id) => {
   return axios.post(`/quizzes/${id}/sessions`)
 }
 
+// 根据sessionId和questionId获取题目信息
+export const getQuestion = (sessionId, questionId) => {
+  return axios.get(`/sessions/${sessionId}/${questionId}`)
+}

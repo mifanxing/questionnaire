@@ -20,11 +20,12 @@ export default class Index extends Component {
     })
   }
   handleStart = async () => {
-    const res = await postSession(this.state.quiz._id),
-      sessionId = res.data.data._id,
+    const res = await postSession(this.state.quiz._id), 
+      sessionId = res.data.data.session_id,
+      questionId = res.data.data.id
+
     //将sessionId和question编码成base64格式，便于URL传输
-      urlComponent = base64(`/${sessionId}/5a0ab91a5855c713c4432e90`)
-    browserHistory.push(`/question/${urlComponent}`)
+    browserHistory.push(`/question/${sessionId}/${questionId}`)
   }
   render() {
     console.log(this.state.data)

@@ -11,7 +11,7 @@ render(
   <Router history={browserHistory}>
     <Route path='/'>
       <IndexRoute component={Index} />
-      <Route path="question/:id" component={Question} ></Route>
+      <Route path="question/:sessionId/:questionId" component={Question} ></Route>
     </Route>
   </Router>
 , document.getElementById('root'))

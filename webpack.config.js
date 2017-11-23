@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname,'dist'),
-    filename: './dist/bundle-[hash].js',
+    filename: 'bundle.js', 
   },
   module: {
     rules: [
@@ -35,7 +35,8 @@ module.exports = {
         target: "http://localhost:5000", 
         pathRewrite: {"^/api" : ""}
       }
-    } 
+    },
+    contentBase: path.join(__dirname, 'dist')
   },
   plugins: [
     new HtmlWebpackPlugin({
