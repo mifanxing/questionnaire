@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server  --history-api-fallback",  
-    "test": "echo \"Error: no test specified\" && exit 1" 
+    "start": "webpack-dev-server  --history-api-fallback",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
     "base64url": "^2.0.0",
+    "classnames": "^2.2.5",
     "prop-types": "^15.5.10",
+    "ramda": "^0.25.0",
     "react": "15.5.3",
     "react-dom": "15.5.3",
     "react-router": "3.0.0"

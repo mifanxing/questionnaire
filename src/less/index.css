@@ -6,3 +6,9 @@
   font-size: 32px;
   font-weight: bold;
 }
+.wrong {
+  background: red;
+}
+.right {
+  background: green;
+}

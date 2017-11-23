@@ -18,3 +18,15 @@ export const postSession = (id) => {
 export const getQuestion = (sessionId, questionId) => {
   return axios.get(`/sessions/${sessionId}/${questionId}`)
 }
+
+//提交题目的答案
+
+export const postAnswer = (sessionId, questionId, data) => {
+  return axios.post(`/sessions/${sessionId}/${questionId}`, data)
+}
+
+//获取结果 
+
+export const getResults = (sessionId) => {
+  return axios.get(`/results/${sessionId}`)
+}
