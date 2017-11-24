@@ -1,7 +1,8 @@
 import classNames from 'classnames'
 import React, { Component } from 'react'
+import {browserHistory} from 'react-router'
 
-import {getResults} from '../../api'
+import {getResults, getQuiz, postSession} from '../../api'
 
 export default class Question extends Component {
   constructor(props) {
@@ -12,14 +13,20 @@ export default class Question extends Component {
   }
 
   async componentDidMount() {
-    const {params: {sessionId, questionId}} = this.props,
+    const {params: {sessionId}} = this.props,
       res = await getResults(sessionId)
-    console.log(res)
     this.setState({
       result: res.data.data,
     })
   }
-
+  handleStart = async () => {
+    const quize = await getQuiz(),
+     session = await postSession(quize.data.data._id),
+     sessionId = session.data.data.session_id,
+     questionId = session.data.data.id
+    console.log(quize, session)
+    browserHistory.push(`/question/${sessionId}/${questionId}`)
+  }
   render() {
     const {result} = this.state
     return <div className="app">
@@ -34,7 +41,9 @@ export default class Question extends Component {
       <div className="total">
         您一共答了{result && result.total}道题，答对一题得一分。
       </div>
-      
+      <div>
+        <button className="question-next-button" onClick={this.handleStart}>重新答题</button>
+      </div>
     </div>
   } 
 

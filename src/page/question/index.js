@@ -71,7 +71,7 @@ export default class Question extends Component {
         {
           question && question.answer.options.map(item => 
             (
-              <li data-questionid={item._id} className={classNames('option',{'answer-right': question.correct === true && item._id === question.chooseValue, 'answer-wrong': question.correct === false && item._id === question.chooseValue})}>
+              <li data-questionid={item._id} key={item._id} className={classNames('option',{'answer-right': question.correct === true && item._id === question.chooseValue, 'answer-wrong': question.correct === false && item._id === question.chooseValue})}>
                 {question.correct === null && <input type="radio" className="question-choose" name="answer" value={item._id} onClick={this.handleSublime} />}
                 {question.correct !== null && <span className="question-choose-icon">{item.correct ? '√' : '×'}</span>} 
                 <span className="option-content">{item.label}</span>
