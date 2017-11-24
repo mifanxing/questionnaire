@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-// import R from 'ramda'
 import classNames from 'classnames'
+import React, { Component } from 'react'
+import {browserHistory} from 'react-router'
+
 import {getQuestion, postAnswer, getResults} from '../../api'
 
 export default class Question extends Component {
@@ -13,49 +14,72 @@ export default class Question extends Component {
   }
   async componentDidMount() {
     const {params: {sessionId, questionId}} = this.props,
-      res = await getQuestion(sessionId, questionId),
-      results = await getResults(sessionId)
+      res = await getQuestion(sessionId, questionId)
 
     this.setState({
       question: res.data.data,
     })
   }
-  handleClick = (e) => {
+
+  async componentWillReceiveProps({params: {sessionId, questionId}}) {
+    if(questionId !== this.props.params.questionId) {
+      const res = await getQuestion(sessionId, questionId)
+
     this.setState({
-      answer: e.target.value
+      question: res.data.data,
     })
+    }
   }
-   handleSublime = async () => {
-    const {params: {sessionId, questionId}} = this.props
-    if(!this.state.answer) {
+
+  handleSublime = async (e) => {
+    const {params: {sessionId, questionId}} = this.props,
+      value = e.target.value
+    if(!value) {
       alert('请选择答案')
       return
     }
-    const result = await postAnswer(sessionId, questionId, {value: this.state.answer})
+    const result = await postAnswer(sessionId, questionId, {value})
     this.setState({
       question: result.data.data
     })
     console.log(result)
   }
+  handleNext = () => {
+    const {params: {sessionId}} = this.props
+    this.state.question.question.question_order === 9 ? browserHistory.push(`/finish/${sessionId}`) : browserHistory.push(`/question/${sessionId}/${this.state.question.next}`)
+  }
   render() {
     const {question} = this.state
-    return <div> 
-      <h4>
-        {
-          question && question.question.title
-        }
-      </h4>
+    return <div className="question">
+      <header>
+      {
+        question && question.correct === null && <h4 className="question-content">
+          {
+            question && question.question.title
+          }
+        </h4>
+      }
+      {
+        question && (question.correct  === false || question.correct === true ) && <div className={classNames('isRight', {'question-right': question.correct, 'question-wrong': !question.correct})}>
+          <div className="question-isRight">{question.correct ? '正确' : '错误'}</div>
+          <button className="question-next-button" onClick={this.handleNext}>{this.state.question.question.question_order === 9 ? "结束答题" : "下一题"}</button>
+        </div>
+      } 
+      </header> 
+      
       <ul>
         {
-          question && question.answer.options.map(
-           item => (<li data-questionid={item._id} className={classNames({'right': item.correct === true, 'wrong': item.correct === false})}>
-              <input type="radio" name="answer" value={item._id} onClick={this.handleClick} checked={item.correct}/>
-              {item.label}
-            </li>)
+          question && question.answer.options.map(item => 
+            (
+              <li data-questionid={item._id} className={classNames('option',{'answer-right': question.correct === true && item._id === question.chooseValue, 'answer-wrong': question.correct === false && item._id === question.chooseValue})}>
+                {question.correct === null && <input type="radio" className="question-choose" name="answer" value={item._id} onClick={this.handleSublime} />}
+                {question.correct !== null && <span className="question-choose-icon">{item.correct ? '√' : '×'}</span>} 
+                <span className="option-content">{item.label}</span>
+              </li>
+            )
           )
         }
       </ul>
-      <button onClick={this.handleSublime}>提交</button>
     </div>
   } 
 

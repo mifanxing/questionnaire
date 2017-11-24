@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import {browserHistory} from 'react-router'
-import base64 from 'base64url'
+
 
 import {getQuiz, postSession} from '../../api'
 
@@ -24,17 +24,16 @@ export default class Index extends Component {
       sessionId = res.data.data.session_id,
       questionId = res.data.data.id
 
-    //将sessionId和question编码成base64格式，便于URL传输
     browserHistory.push(`/question/${sessionId}/${questionId}`)
   }
   render() {
-    console.log(this.state.data)
+
     return (
       <div className="app">
         <header className="index__header">
           {this.state.quiz.description}
         </header>
-        <button onClick={this.handleStart}>开始测试</button>
+        <button className="question-next-button" onClick={this.handleStart}>开始测试</button>
       </div>
     )
   }

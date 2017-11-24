@@ -1,18 +1,79 @@
+@import "normal.less";
+
 .app {
   height: 100%;
+  margin: 50px auto;
+  padding: 50px 20px;
+  border: 1px solid #333;
+  width: 500px;
+  
   .index__header {
-    text-align: center;
     font-size: 32px;
     font-weight: bold;
+    text-align: center;
   }
 }
 
-.wrong {
-  background: red;
+.question {
+  width: 500px;
+  margin: 50px auto;
+  &-choose {
+    margin-right: 20px;
+  }
+  &-content {
+    font-size: 32px;
+
+  }
 }
 
-.right {
-  background: green;
+.option {
+  border-bottom: 1px solid #999;
+  padding: 20px 0;
+  &-content {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+}
+
+.answer-right, .question-right {
+  color: white;
+  background: rgba(0, 255, 0, .5);
+}
+
+.answer-wrong, .question-wrong {
+  color: white;
+  background: rgba(255, 0 , 0, .5);
 }
 
 
+
+.isRight {
+  padding: 30px;
+}
+
+.question-isRight {
+  color: white;
+  font-size: 32px;
+  text-align: center;
+}
+
+.question-next-button {
+  display: block;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 20px auto 0;
+  border: 1px solid #999;
+}
+
+.question-choose-icon {
+  font-size: 32px;
+}
+
+.score {
+  color: #c21c51;
+}
+
+.total {
+  margin: 10px 0;
+}
